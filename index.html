@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App</title>
+    <link rel="stylesheet" href="src/styles/app.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header>
+      <app-header></app-header>
+    </header>
+    <main>
+      <section id="noteForm" class="note-form">
+        <div class="note-form__header">
+          <h4>Tambah Note</h4>
+        </div>
+        <form class="note-form__body">
+          <div class="form-group">
+            <label for="title">Judul</label>
+            <input type="text" name="title" id="title" />
+          </div>
+          <div class="form-group">
+            <label for="content">Isi</label>
+            <textarea name="content" id="content" rows="6"></textarea>
+          </div>
+          <button type="submit">Simpan</button>
+        </form>
+      </section>
+      <section id="noteList" class="note-list">
+        <h3>Daftar Catatan</h3>
+        <div class="note-list__wrapper">
+          <div class="note-list__item">
+            <h4>Judul</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
+              accusantium dolorum, aliquam exercitationem possimus veniam
+              repellendus nostrum quas molestias, ad enim natus suscipit?
+            </p>
+            <div class="note-list__button-group">
+              <button type="button">
+                <i class="fa-solid fa-box-archive"></i> Arsip
+              </button>
+              <button type="button" class="red">
+                <i class="fa-solid fa-trash"></i>
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <div class="note-list__item">
+            <h4>Judul</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
+              accusantium dolorum, aliquam exercitationem possimus veniam
+              repellendus nostrum quas molestias, ad enim natus suscipit?
+            </p>
+            <div class="note-list__button-group">
+              <button type="button">
+                <i class="fa-solid fa-box-archive"></i> Arsip
+              </button>
+              <button type="button" class="red">
+                <i class="fa-solid fa-trash"></i>
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <div class="note-list__item">
+            <h4>Judul</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
+              accusantium dolorum, aliquam exercitationem possimus veniam
+              repellendus nostrum quas molestias, ad enim natus suscipit?
+            </p>
+            <div class="note-list__button-group">
+              <button type="button">
+                <i class="fa-solid fa-box-archive"></i> Arsip
+              </button>
+              <button type="button" class="red">
+                <i class="fa-solid fa-trash"></i>
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <div class="note-list__item">
+            <h4>Judul</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
+              accusantium dolorum, aliquam exercitationem possimus veniam
+              repellendus nostrum quas molestias, ad enim natus suscipit?
+            </p>
+            <div class="note-list__button-group">
+              <button type="button">
+                <i class="fa-solid fa-box-archive"></i> Arsip
+              </button>
+              <button type="button" class="red">
+                <i class="fa-solid fa-trash"></i>
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <div class="note-list__item">
+            <h4>Judul</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
+              accusantium dolorum, aliquam exercitationem possimus veniam
+              repellendus nostrum quas molestias, ad enim natus suscipit?
+            </p>
+            <div class="note-list__button-group">
+              <button type="button">
+                <i class="fa-solid fa-box-archive"></i> Arsip
+              </button>
+              <button type="button" class="red">
+                <i class="fa-solid fa-trash"></i>
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <div class="note-list__item">
+            <h4>Judul</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
+              accusantium dolorum, aliquam exercitationem possimus veniam
+              repellendus nostrum quas molestias, ad enim natus suscipit?
+            </p>
+            <div class="note-list__button-group">
+              <button type="button">
+                <i class="fa-solid fa-box-archive"></i> Arsip
+              </button>
+              <button type="button" class="red">
+                <i class="fa-solid fa-trash"></i>
+                Hapus
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer></footer>
+
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
