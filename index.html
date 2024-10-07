@@ -26,142 +26,22 @@
       <app-header></app-header>
     </header>
     <main>
-      <section id="noteForm" class="note-form">
-        <div class="note-form__header">
-          <h4>Tambah Note</h4>
-        </div>
-        <form class="note-form__body">
-          <div class="form-group">
-            <label for="title">Judul</label>
-            <input type="text" name="title" id="title" />
-          </div>
-          <div class="form-group">
-            <label for="content">Isi</label>
-            <textarea name="content" id="content" rows="6"></textarea>
-          </div>
-          <button type="submit">Simpan</button>
-        </form>
+      <section id="noteForm">
+        <note-form max-title-length="70"></note-form>
       </section>
       <section id="noteList" class="note-list">
-        <h3>Daftar Catatan</h3>
-        <div class="note-list__wrapper">
-          <div class="note-list__item">
-            <h4>Judul</h4>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
-              accusantium dolorum, aliquam exercitationem possimus veniam
-              repellendus nostrum quas molestias, ad enim natus suscipit?
-            </p>
-            <div class="note-list__button-group">
-              <button type="button">
-                <i class="fa-solid fa-box-archive"></i> Arsip
-              </button>
-              <button type="button" class="red">
-                <i class="fa-solid fa-trash"></i>
-                Hapus
-              </button>
-            </div>
-          </div>
+        <h3><i class="fa-solid fa-book"></i> Daftar Catatan</h3>
+        <note-list id="note-list-active"></note-list>
+      </section>
 
-          <div class="note-list__item">
-            <h4>Judul</h4>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
-              accusantium dolorum, aliquam exercitationem possimus veniam
-              repellendus nostrum quas molestias, ad enim natus suscipit?
-            </p>
-            <div class="note-list__button-group">
-              <button type="button">
-                <i class="fa-solid fa-box-archive"></i> Arsip
-              </button>
-              <button type="button" class="red">
-                <i class="fa-solid fa-trash"></i>
-                Hapus
-              </button>
-            </div>
-          </div>
-
-          <div class="note-list__item">
-            <h4>Judul</h4>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
-              accusantium dolorum, aliquam exercitationem possimus veniam
-              repellendus nostrum quas molestias, ad enim natus suscipit?
-            </p>
-            <div class="note-list__button-group">
-              <button type="button">
-                <i class="fa-solid fa-box-archive"></i> Arsip
-              </button>
-              <button type="button" class="red">
-                <i class="fa-solid fa-trash"></i>
-                Hapus
-              </button>
-            </div>
-          </div>
-
-          <div class="note-list__item">
-            <h4>Judul</h4>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
-              accusantium dolorum, aliquam exercitationem possimus veniam
-              repellendus nostrum quas molestias, ad enim natus suscipit?
-            </p>
-            <div class="note-list__button-group">
-              <button type="button">
-                <i class="fa-solid fa-box-archive"></i> Arsip
-              </button>
-              <button type="button" class="red">
-                <i class="fa-solid fa-trash"></i>
-                Hapus
-              </button>
-            </div>
-          </div>
-
-          <div class="note-list__item">
-            <h4>Judul</h4>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
-              accusantium dolorum, aliquam exercitationem possimus veniam
-              repellendus nostrum quas molestias, ad enim natus suscipit?
-            </p>
-            <div class="note-list__button-group">
-              <button type="button">
-                <i class="fa-solid fa-box-archive"></i> Arsip
-              </button>
-              <button type="button" class="red">
-                <i class="fa-solid fa-trash"></i>
-                Hapus
-              </button>
-            </div>
-          </div>
-
-          <div class="note-list__item">
-            <h4>Judul</h4>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Voluptate voluptates, beatae nisi adipisci numquam quia commodi
-              accusantium dolorum, aliquam exercitationem possimus veniam
-              repellendus nostrum quas molestias, ad enim natus suscipit?
-            </p>
-            <div class="note-list__button-group">
-              <button type="button">
-                <i class="fa-solid fa-box-archive"></i> Arsip
-              </button>
-              <button type="button" class="red">
-                <i class="fa-solid fa-trash"></i>
-                Hapus
-              </button>
-            </div>
-          </div>
-        </div>
+      <section id="noteList" class="note-list">
+        <h3><i class="fa-solid fa-box-archive"></i> Arsip Catatan</h3>
+        <note-list id="note-list-archived"></note-list>
       </section>
     </main>
-    <footer></footer>
+    <footer>
+      <app-footer></app-footer>
+    </footer>
 
     <script type="module" src="/src/app.js"></script>
   </body>
