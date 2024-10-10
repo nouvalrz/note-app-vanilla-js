@@ -4,3 +4,4 @@ import "./note-list.js";
 import "./note-item.js";
 import "./app-footer.js";
 import "./note-empty.js";
+import "./app-loading.js";

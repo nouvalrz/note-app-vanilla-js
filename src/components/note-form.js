@@ -9,6 +9,8 @@ class NoteForm extends HTMLElement {
 
   _maxTitleLength = 50;
 
+  _loading = false;
+
   constructor() {
     super();
 
@@ -20,7 +22,15 @@ class NoteForm extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["max-title-length"];
+    return ["max-title-length", "loading"];
+  }
+
+  get loading() {
+    return this._loading;
+  }
+
+  set loading(value) {
+    this._loading = String(value).toLowerCase() === "true";
   }
 
   set maxTitleLength(value) {
@@ -32,6 +42,14 @@ class NoteForm extends HTMLElement {
 
   get maxTitleLength() {
     return this._maxTitleLength;
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      this[name] = newValue;
+      this.render();
+      this.connectedCallback();
+    }
   }
 
   connectedCallback() {
@@ -204,14 +222,20 @@ class NoteForm extends HTMLElement {
               <label for="title">Judul</label>
               <span id="charLimit">0/${this.maxTitleLength}</span>
             </div>
-              <input type="text" name="title" id="title" required pattern=".{1,${this.maxTitleLength}}" title="Masukkan antara 1-${this.maxTitleLength} karakter"  />
+              <input type="text" name="title" id="title" required pattern=".{1,${
+                this.maxTitleLength
+              }}" title="Masukkan antara 1-${this.maxTitleLength} karakter"  />
               <span class="form-group__validation">Judul melebihi batas karakter</span>
           </div>
           <div class="form-group">
             <label for="content">Isi</label>
             <textarea name="content" id="content" rows="6" required></textarea>
           </div>
-          <button type="submit">Simpan</button>
+          <button type="submit">${
+            this.loading
+              ? "<app-loading display='block'></app-loading>"
+              : "Simpan"
+          }</button>
         </form>
       </div>
     `;

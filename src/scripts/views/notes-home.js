@@ -2,13 +2,34 @@ import "../utils.js";
 import "../data/local/notes.js";
 import Note from "../data/local/notes.js";
 import Utils from "../utils.js";
+import Swal from "sweetalert2";
+import NotesApi from "../data/remote/notes-api.js";
 
-const allNotes = [...Note.getAll()];
+// const allNotes = [...Note.getAll()];
 
 const notesHome = () => {
-  document.addEventListener("add-note", (event) => {
-    allNotes.push(event.detail);
-    render();
+  document.addEventListener("add-note", async (event) => {
+    const noteFormElement = document.querySelector("note-form");
+    noteFormElement.setAttribute("loading", true);
+    try {
+      const { title, body } = event.detail;
+      const requestBody = { title, body };
+      await NotesApi.createNote(requestBody);
+      render();
+
+      Utils.TimerToast.fire({
+        title: "Success!",
+        text: "Berhasil menambah catatan",
+        icon: "success",
+      });
+    } catch (e) {
+      Utils.PopUp.fire({
+        title: "Error!",
+        text: e,
+        icon: "error",
+      });
+    }
+    noteFormElement.setAttribute("loading", false);
   });
 
   document.addEventListener("edit-note", (event) => {
@@ -32,46 +53,66 @@ const notesHome = () => {
     renderArchived();
   };
 
-  const renderActive = () => {
+  const renderActive = async () => {
+    const noteActiveLoading = document.querySelector("#note-active-loading");
+    noteActiveLoading.setAttribute("display", "block");
     const noteActiveListElement = document.querySelector("#note-list-active");
-    const activeNotesSorted = allNotes
-      .filter((note) => !note.archived)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    const noteItemElements = activeNotesSorted.map((note) => {
-      const noteItemElement = document.createElement("note-item");
-      noteItemElement.note = note;
-      return noteItemElement;
-    });
 
-    if (noteItemElements.length === 0) {
-      const noteEmptyElement = document.createElement("note-empty");
-      noteItemElements.push(noteEmptyElement);
+    try {
+      const response = await NotesApi.getActiveNotes();
+      const noteItemElements = response["data"].map((note) => {
+        const noteItemElement = document.createElement("note-item");
+        noteItemElement.note = note;
+        return noteItemElement;
+      });
+
+      if (noteItemElements.length === 0) {
+        const noteEmptyElement = document.createElement("note-empty");
+        noteItemElements.push(noteEmptyElement);
+      }
+
+      noteActiveLoading.setAttribute("display", "none");
+      Utils.emptyElement(noteActiveListElement);
+      noteActiveListElement.append(...noteItemElements);
+    } catch (e) {
+      const appErrorElement = document.createElement("app-error");
+      appErrorElement.message = e;
+      Utils.emptyElement(noteActiveListElement);
+      noteActiveListElement.append(appErrorElement);
     }
-
-    Utils.emptyElement(noteActiveListElement);
-    noteActiveListElement.append(...noteItemElements);
   };
 
-  const renderArchived = () => {
+  const renderArchived = async () => {
+    const noteArchivedLoading = document.querySelector(
+      "#note-archived-loading"
+    );
+    noteArchivedLoading.setAttribute("display", "block");
     const noteArchivedListElement = document.querySelector(
       "#note-list-archived"
     );
-    const archivedNotesSorted = allNotes
-      .filter((note) => note.archived)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    const noteItemElements = archivedNotesSorted.map((note) => {
-      const noteItemElement = document.createElement("note-item");
-      noteItemElement.note = note;
-      return noteItemElement;
-    });
 
-    if (noteItemElements.length === 0) {
-      const noteEmptyElement = document.createElement("note-empty");
-      noteItemElements.push(noteEmptyElement);
+    try {
+      const response = await NotesApi.getArchivedNotes();
+      const noteItemElements = response["data"].map((note) => {
+        const noteItemElement = document.createElement("note-item");
+        noteItemElement.note = note;
+        return noteItemElement;
+      });
+
+      if (noteItemElements.length === 0) {
+        const noteEmptyElement = document.createElement("note-empty");
+        noteItemElements.push(noteEmptyElement);
+      }
+
+      noteArchivedLoading.setAttribute("display", "none");
+      Utils.emptyElement(noteArchivedListElement);
+      noteArchivedListElement.append(...noteItemElements);
+    } catch (e) {
+      const appErrorElement = document.createElement("app-error");
+      appErrorElement.message = e;
+      Utils.emptyElement(noteActiveListElement);
+      noteArchivedListElement.append(appErrorElement);
     }
-
-    Utils.emptyElement(noteArchivedListElement);
-    noteArchivedListElement.append(...noteItemElements);
   };
 
   render();

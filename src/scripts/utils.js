@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 class Utils {
   static emptyElement(element) {
     element.innerHTML = "";
@@ -12,6 +13,33 @@ class Utils {
     element.style.display = "none";
     element.hidden = true;
   }
+
+  static TimerToast = Swal.mixin({
+    color: "white",
+    toast: true,
+    background: "var(--gray)",
+    confirmButtonColor: "var(--green)",
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+      const progressBar = toast.querySelector(".swal2-timer-progress-bar");
+      if (progressBar) {
+        progressBar.style.backgroundColor = "var(--green)"; // Ganti dengan warna yang diinginkan
+      }
+    },
+  });
+
+  static PopUp = Swal.mixin({
+    color: "white",
+    background: "var(--gray)",
+    confirmButtonColor: "var(--green)",
+    position: "center",
+    showConfirmButton: true,
+  });
 
   static isValidInteger(newValue) {
     return Number.isNaN(newValue) || Number.isFinite(newValue);
