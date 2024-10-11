@@ -1,11 +1,7 @@
 import "../utils.js";
 import "../data/local/notes.js";
-import Note from "../data/local/notes.js";
 import Utils from "../utils.js";
-import Swal from "sweetalert2";
 import NotesApi from "../data/remote/notes-api.js";
-
-// const allNotes = [...Note.getAll()];
 
 const notesHome = () => {
   document.addEventListener("add-note", async (event) => {
@@ -32,20 +28,68 @@ const notesHome = () => {
     noteFormElement.setAttribute("loading", false);
   });
 
-  document.addEventListener("edit-note", (event) => {
-    const selectedNoteIndex = allNotes.findIndex(
-      (note) => note.id === event.detail.id
-    );
-    allNotes.splice(selectedNoteIndex, 1, event.detail);
-    render();
+  document.addEventListener("archive-note", async (event) => {
+    try {
+      await NotesApi.setArchiveNote(event.detail.id);
+      Utils.TimerToast.fire({
+        title: "Success!",
+        text: "Berhasil mengarsip catatan",
+        icon: "success",
+      });
+      render();
+    } catch (e) {
+      Utils.PopUp.fire({
+        title: "Error!",
+        text: e,
+        icon: "error",
+      });
+    }
   });
 
-  document.addEventListener("delete-note", (event) => {
-    const selectedNoteIndex = allNotes.findIndex(
-      (note) => note.id === event.detail.id
-    );
-    allNotes.splice(selectedNoteIndex, 1);
-    render();
+  document.addEventListener("unarchive-note", async (event) => {
+    try {
+      await NotesApi.setUnarchiveNote(event.detail.id);
+      Utils.TimerToast.fire({
+        title: "Success!",
+        text: "Berhasil mengambalikan catatan",
+        icon: "success",
+      });
+      render();
+    } catch (e) {
+      Utils.PopUp.fire({
+        title: "Error!",
+        text: e,
+        icon: "error",
+      });
+    }
+  });
+
+  document.addEventListener("delete-note", async (event) => {
+    try {
+      const result = await Utils.PopUp.fire({
+        title: "Apakah yakin menghapus catatan?",
+        showCancelButton: true,
+        confirmButtonText: "Ya",
+      });
+
+      if (!result.isConfirmed) {
+        return;
+      }
+
+      await NotesApi.deleteNote(event.detail.id);
+      render();
+      Utils.TimerToast.fire({
+        title: "Success!",
+        text: "Berhasil menghapus catatan",
+        icon: "success",
+      });
+    } catch (e) {
+      Utils.PopUp.fire({
+        title: "Error!",
+        text: e,
+        icon: "error",
+      });
+    }
   });
 
   const render = () => {
@@ -60,7 +104,10 @@ const notesHome = () => {
 
     try {
       const response = await NotesApi.getActiveNotes();
-      const noteItemElements = response["data"].map((note) => {
+      const notesSorted = response["data"].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      const noteItemElements = notesSorted.map((note) => {
         const noteItemElement = document.createElement("note-item");
         noteItemElement.note = note;
         return noteItemElement;
@@ -93,7 +140,10 @@ const notesHome = () => {
 
     try {
       const response = await NotesApi.getArchivedNotes();
-      const noteItemElements = response["data"].map((note) => {
+      const notesSorted = response["data"].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      const noteItemElements = notesSorted.map((note) => {
         const noteItemElement = document.createElement("note-item");
         noteItemElement.note = note;
         return noteItemElement;

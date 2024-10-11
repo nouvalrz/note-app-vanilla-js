@@ -1,5 +1,6 @@
 import "../scripts/utils.js";
 import Utils from "../scripts/utils.js";
+import { gsap } from "gsap";
 
 class NoteItem extends HTMLElement {
   _shadowRoot = null;
@@ -36,6 +37,13 @@ class NoteItem extends HTMLElement {
     this._shadowRoot
       .querySelector("#deleteNote")
       .addEventListener("click", (event) => this._onDeleteNote(event));
+
+    gsap.to(this._shadowRoot.querySelector(".note-list__item"), {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      ease: "power2.out",
+    });
   }
 
   disconnectedCallback() {
@@ -47,17 +55,18 @@ class NoteItem extends HTMLElement {
       .removeEventListener("click", (event) => this._onDeleteNote(event));
   }
 
-  _editNote(note) {
-    document.dispatchEvent(new CustomEvent("edit-note", { detail: note }));
-  }
-
   _onToggleArchived(event) {
     event.preventDefault();
-    const editedNote = {
-      ...this.note,
-      archived: !this.note.archived,
-    };
-    this._editNote(editedNote);
+
+    if (this.note.archived) {
+      document.dispatchEvent(
+        new CustomEvent("unarchive-note", { detail: this.note })
+      );
+    } else {
+      document.dispatchEvent(
+        new CustomEvent("archive-note", { detail: this.note })
+      );
+    }
   }
 
   _onDeleteNote(event) {
@@ -79,6 +88,8 @@ class NoteItem extends HTMLElement {
         box-sizing: border-box;
       }
       .note-list__item {
+        opacity: 0;
+        transform: translateY(2rem);
         height: 100%;
         display: flex;
         flex-direction: column;

@@ -32,6 +32,7 @@ class AppHeader extends HTMLElement {
       justify-content: center;
       align-items: flex-end;
       gap: 0.5rem;
+      z-index: 100;
     }
 
     h2 {

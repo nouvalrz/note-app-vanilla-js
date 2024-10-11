@@ -3,6 +3,7 @@ const BASE_URL = "https://notes-api.dicoding.dev/v2";
 class NotesApi {
   static async handleResponse(response) {
     if (!(response.status >= 200 && response.status < 300)) {
+      console.log(response.json());
       throw new Error("Something went wrong");
     }
     return response.json();
@@ -34,21 +35,21 @@ class NotesApi {
   }
 
   static async setArchiveNote(id) {
-    const response = await fetch(BASE_URL + `notes/${id}/archive`, {
+    const response = await fetch(BASE_URL + `/notes/${id}/archive`, {
       method: "POST",
     });
     return await this.handleResponse(response);
   }
 
   static async setUnarchiveNote(id) {
-    const response = await fetch(BASE_URL + `notes/${id}/unarchive`, {
+    const response = await fetch(BASE_URL + `/notes/${id}/unarchive`, {
       method: "POST",
     });
     return await this.handleResponse(response);
   }
 
   static async deleteNote(id) {
-    const response = await fetch(BASE_URL + `notes/${id}`, {
+    const response = await fetch(BASE_URL + `/notes/${id}`, {
       method: "DELETE",
     });
     return await this.handleResponse(response);

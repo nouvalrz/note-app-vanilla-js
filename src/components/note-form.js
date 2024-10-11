@@ -76,7 +76,7 @@ class NoteForm extends HTMLElement {
     charLimitElement.innerHTML = `${title.length}/${this.maxTitleLength}`;
 
     const validationElement = this._shadowRoot.querySelector(
-      ".form-group__validation"
+      ".form-group__validation",
     );
     if (title.length > this.maxTitleLength) {
       validationElement.innerHTML = "Judul melebihi batas karakter";
