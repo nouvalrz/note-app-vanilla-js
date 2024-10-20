@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "start-dev": "webpack-dev-server --config webpack.dev.js --port 7001"
+    "start-dev": "webpack-dev-server --config webpack.dev.js --port 7003"
   },
   "keywords": [],
   "author": "",

@@ -160,7 +160,7 @@ const notesHome = () => {
     } catch (e) {
       const appErrorElement = document.createElement("app-error");
       appErrorElement.message = e;
-      Utils.emptyElement(noteActiveListElement);
+      Utils.emptyElement(noteArchivedListElement);
       noteArchivedListElement.append(appErrorElement);
     }
   };
